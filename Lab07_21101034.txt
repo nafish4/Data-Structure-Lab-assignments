@@ -1,0 +1,173 @@
+#Nafis Chowdhury
+#21101034
+#Section: 02
+
+#1.a
+def factorial(num):
+    if num==0 or num==1:
+        return 1
+    else:
+        return num*factorial(num-1)
+print(factorial(5))
+
+#1.b
+def fib(n):
+    if n==0:
+        return 0
+    elif n==1:
+        return 1
+    return fib(n-1)+fib(n-2)
+print(fib(6))
+
+#1.c
+def printarray(a,i):
+    if i==len(a)-1:
+        print(a[i],end=" ")
+        return
+    else:
+        print(a[i],end=",")
+        printarray(a,i+1)
+printarray([1,2,3,4,5],0)
+
+#1.d
+def powerN(n,p):
+    if p==1:
+        return n
+    else:
+        return n*powerN(n,p-1)
+print(powerN(3,2))
+
+#2.a
+def bin(n):
+    if n//2==0:
+        return str(n%2)
+    else:
+        return str(bin(n//2))+str(n%2)
+print(bin(1117))
+
+#2.b
+class node:
+    def __init__(self,e,n):
+        self.element=e
+        self.next=n
+class LinkedList:
+    def __init__(self,a):
+        self.head=None
+        tail=None
+        for i in range(len(a)):
+            n=node(a[i],None)
+            if self.head==None:
+                self.head=n
+                tail=n
+            else:
+                tail.next=n
+                tail=n
+    def sum(self,h):
+        if h==None:
+            return 0
+        else:
+            return h.element+self.sum(h.next)
+#Tester Class
+a1 = [10, -20, 30, 40]
+h1 = LinkedList(a1)
+print(h1.sum(h1.head))
+
+#2.c
+class node:
+    def __init__(self,e,n):
+        self.element=e
+        self.next=n
+class LinkedList:
+    def __init__(self,a):
+        self.head=None
+        tail=None
+        for i in range(len(a)):
+            n=node(a[i],None)
+            if self.head==None:
+                self.head=n
+                tail=n
+            else:
+                tail.next=n
+                tail=n
+    def printreverse(self,h):
+        if h.next==None:
+            print(h.element)
+        else:
+            self.printreverse(h.next)
+            print(h.element)
+#Tester class
+a1 = [10, 20, 30, 40]
+h1 = LinkedList(a1)
+h1.printreverse(h1.head)
+
+#3.
+def hocBuilder(height):
+    if height==0:
+        return 0
+    elif height==1:
+        return 8
+    else:
+        return 5+hocBuilder(height-1)
+print(hocBuilder(3))
+
+#4.a
+def pattern(n):
+    if n==1:
+        print(1,end="")
+
+    else:
+        pattern(n-1)
+        print()
+        pattern2(n)
+def pattern2(n):
+    if n==1:
+        print(n,end="")
+    else:
+        pattern2(n-1)
+        print(n,end="")
+pattern(5)
+
+#4.b
+def pattern(n,num):
+    if n==0:
+        return
+    else:
+        pattern(n-1,num)
+        print(" "*pattern3(n-1,num),end="")
+        pattern2(n,num)
+        print()
+def pattern2(n,num):
+    if n==0:
+        return
+    else:
+        pattern2(n-1,num)
+        print(n,end="")
+def pattern3(n,num):
+    return num-n-1
+pattern(5,5)
+
+5.
+class FinalQ: 
+    def printinvestment(self,array,idx): 
+        if(idx<len(array)): 
+            profit = self.calcProfit(array[idx])
+            print("Investment:",str(array[idx]),"; Profit:",profit)
+            self.printinvestment(array,idx+1)
+             
+
+        else:
+            return
+
+  
+    def calcProfit(self,investment):
+        if investment-25000<=0:
+            return 0.0
+        elif investment-100000>0:
+            return 80.0+self.calcProfit(investment-1000)
+        else:
+            return 45.0+self.calcProfit(investment-1000)
+  
+#Tester Class
+array=[25000,100000,250000,350000] 
+f = FinalQ() 
+f.printinvestment(array,0)

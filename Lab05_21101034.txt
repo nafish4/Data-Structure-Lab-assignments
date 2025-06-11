@@ -1,0 +1,166 @@
+# Nafis Chowdhury
+# 21101034
+# Section:02
+
+
+#ArrayStack
+class ArrayStack:
+    def __init__(self):
+        self.top=-1
+        self.new_array=[None]*5
+
+    def push(self,elem):
+        if self.top==len(self.new_array)-1:
+            print("overflow")
+        else:
+            
+            self.new_array[self.top+1]=elem
+            
+            self.top+=1
+    def pop(self):
+        if self.top==-1:
+            return None
+        else:
+            temp= self.new_array[self.top]
+            self.new_array[self.top]=None
+            self.top-=1
+            return temp
+            
+
+    def peak(self):
+        
+        return self.new_array[self.top]
+
+    def printStack(self):
+        for i in range(self.top,-1,-1):
+            if i==0:
+                print(self.new_array[i],end=" ")
+            else:
+                print(self.new_array[i],end=",")
+
+    def parenthesischeck(self,string):
+        self.new_array=[None]*len(string)
+        count=1
+        for i in string:
+            if i in "({[<":
+                self.push(i)
+            elif i in ")}]>":
+                x=self.pop()
+                if x==None:
+                    print("This expression is NOT correct.")
+                    print("Error at character #",count,".",i,"- not opened.")
+                    return 
+                else:
+                    if  x=="(" and i==")":
+                        continue
+                    elif  x=="{" and i=="}":
+                        continue
+                    elif  x=="[" and i=="]":
+                        continue
+                    elif  x=="<" and i==">":
+                        continue
+                    else:
+                        for j in range(len(string)):
+                            if string[j]==x:
+                                count=j+1
+                        print("This expression is NOT correct.")
+                        print("Error at character #",count,".",x,"- not closed.")
+                        return
+            count+=1
+        if self.new_array==[None]*len(string):
+            print("This expression is correct.")
+string=input()
+a1=ArrayStack()
+a1.parenthesischeck(string)
+
+#LinkedList Stack
+class Node:
+    def __init__(self,e,n):
+        self.element=e
+        self.next=n
+
+
+class LinkedList:
+    def __init__(self):
+        self.head=None
+    
+
+    def push(self, element):
+        n = Node(element,None)
+        if self.head == None:
+            self.head =  n
+        else:
+            n1=self.head
+            while n1.next!=None:
+                n1=n1.next
+            n1.next=n
+            
+
+    def peek(self):
+        h=self.head
+        while h.next!=None:
+            h=h.next
+        return h.element
+    def pop(self):
+        if self.head==None:
+            return None
+        elif self.head.next==None:
+            temp=self.head.element
+            self.head=None
+            return temp
+        h=self.head
+        while h.next.next!=None:
+            h=h.next
+        temp=h.next.element
+        h.next=None 
+        return temp
+
+
+
+    def printLinkedList(self):
+        h=self.head
+        while h!=None:
+            print(h.element,end=" ")
+            h=h.next
+
+    
+    def parenthesischeck(self,string):
+        boolean=0
+        count=1
+        for i in string:
+            if i in "({[<":
+              
+                self.push(i)
+            elif i in ")}]>":
+               
+                x=self.pop()
+                #print(x,i)
+                if x==None:
+                    boolean=1
+                    print("This expression is NOT correct.")
+                    print("Error at character #",count,".",i,"- not opened.")
+                    return 
+                else:
+                    if  x=="(" and i==")":
+                        continue
+                    elif  x=="{" and i=="}":
+                        continue
+                    elif  x=="[" and i=="]":
+                        continue
+                    elif  x=="<" and i==">":
+                        continue
+                    else:
+                        boolean=1
+                        for j in range(len(string)):
+                            if string[j]==x:
+                                count=j+1
+                        print("This expression is NOT correct.")
+                        print("Error at character #",count,".",x,"- not closed.")
+                        return
+            count+=1
+        if boolean==0:
+            print("This expression is correct.")
+
+string=input()
+a1=LinkedList()
+a1.parenthesischeck(string)

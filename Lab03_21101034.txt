@@ -1,0 +1,266 @@
+class Node:
+    def __init__(self, e, n):
+        self.element = e
+        self.next = n
+class LinkedList:
+    def __init__(self, a):
+        self.head=None
+        temp=None
+        if type(a) is type([]):
+            for i in range(0,len(a)):
+                temp=Node(a[i],None)
+                if self.head==None:
+                    self.head=temp
+                    tail=temp
+                else:
+                    tail.next=temp
+                    tail=temp
+        else:
+            self.head=a
+        
+
+    def countNode(self):
+        count=0
+        h=self.head
+        while h!=None:
+            count+=1
+            h=h.next
+        return count
+  
+
+    def printList(self):
+        a=self.head
+        while a!=None:
+            if a.next==None:
+                print(a.element,end=".")
+            else:
+                print(a.element,end=",")
+            a=a.next
+        print()
+    def nodeAt(self, idx):
+        h=self.head
+        i=0
+        while h!=None:
+            if i==idx:
+                return h
+            else:
+                h=h.next
+                i+=1
+        return None
+
+    def get(self, idx):
+        h=self.head
+        i=0
+        while h!=None:
+            if i==idx:
+                return h.element
+            else:
+                h=h.next
+                i+=1
+        return None
+  
+    def set(self, idx, elem):
+        h=self.head
+        i=0
+        while h!=None:
+            if i==idx:
+                temp=h.element
+                h.element=elem
+                return temp
+            i+=1
+            h=h.next
+        return None 
+
+    def indexOf(self, elem):
+        h=self.head
+        count=0
+        while h!=None:
+            if h.element==elem:
+                return count
+            else:
+                count+=1
+                h=h.next 
+        return -1
+
+    def contains(self, elem):
+        h=self.head
+        while h!=None:
+            if h.element==elem:
+                return True
+            h=h.next
+        return False
+  
+    def copyList(self):
+        duplicate_head=None
+        duplicate_tail=None
+        h=self.head
+        while h!=None:
+            newNode=Node(h.element,None)
+            if duplicate_head==None:
+                duplicate_head=newNode
+                duplicate_tail=newNode
+            else:
+                duplicate_tail.next=newNode
+                duplicate_tail=newNode
+            h=h.next
+        return duplicate_head
+
+    def insert(self, elem, idx):
+        new=Node(elem,None)
+        if idx==0:
+            new.next=self.head
+            self.head=new
+        else:
+            a=self.nodeAt(idx-1)
+            temp=a.next
+            a.next=new
+            new.next=temp
+
+    def reverseList(self):
+        new_head=None
+        h=self.head
+        node=None
+        while h!=None:
+            node=h.next
+            h.next=new_head
+            new_head=h
+            h=node
+        return new_head
+
+    def remove(self, idx):
+        if idx==0:
+            temp=self.head
+            b=self.head.next
+            self.head=b
+        else:
+            a=self.nodeAt(idx-1)
+            b=self.nodeAt(idx+1)
+            temp=self.nodeAt(idx)
+            a.next=b
+        return temp.element
+
+    def rotateRight(self):
+        n=self.head
+        tail=None
+        pre=None
+        while n.next.next!=None:
+            n=n.next
+        tail=n.next
+        tail.next=self.head
+        self.head=tail
+        n.next=None
+  
+    def rotateLeft(self):
+        n=self.head
+        while n.next!=None:
+            n=n.next
+        tail=None
+        p=self.head
+        self.head=p.next
+        tail=p
+        n.next=p 
+        tail.next=None
+
+
+print("////// Test 01 //////")
+a1 = [10, 20, 30, 40]
+h1 = LinkedList(a1) 
+
+h1.printList() 
+print(h1.countNode())
+
+print("////// Test 02 //////")
+
+myNode = h1.nodeAt(1)
+print(myNode.element)
+    
+print("////// Test 03 //////")
+
+val = h1.get(2)
+print(val) 
+    
+    
+print("////// Test 04 //////")
+    
+         
+print(h1.set(1,85))
+h1.printList() 
+print(h1.set(15,85)) 
+h1.printList() 
+    
+print("////// Test 05 //////")
+
+index = h1.indexOf(40)
+print(index) 
+    
+print("////// Test 06 //////")
+
+ask = h1.contains(40)
+print(ask) 
+    
+    
+print("////// Test 07 //////")
+a2 = [10,20,30,40,50,60,70]
+h2 = LinkedList(a2) 
+h2.printList() 
+
+copyH=h2.copyList() 
+h3 = LinkedList(copyH) 
+h3.printList() 
+    
+print("////// Test 08 //////")
+a4 = [10,20,30,40,50]
+h4 = LinkedList(a4) 
+h4.printList()
+
+revH=h4.reverseList() 
+h5 = LinkedList(revH)
+h5.printList() 
+    
+print("////// Test 09 //////")
+a6 = [10,20,30,40]
+h6 = LinkedList(a6) 
+h6.printList() 
+    
+
+h6.insert(85,0)
+h6.printList()
+h6.insert(95,3)
+h6.printList() 
+h6.insert(75,6)
+h6.printList() 
+    
+    
+    
+print("////// Test 10 //////")
+a7 = [10,20,30,40,50,60,70]
+h7 = LinkedList(a7)
+h7.printList()
+    
+
+    
+print("Removed element:",h7.remove(0)) 
+h7.printList()   
+print("Removed element: ",h7.remove(3)) 
+h7.printList()   
+print("Removed element: ",h7.remove(4)) 
+h7.printList()  
+    
+    
+print("////// Test 11 //////")
+a8 = [10,20,30,40]
+h8 = LinkedList(a8) 
+h8.printList() 
+    
+
+h8.rotateLeft()
+h8.printList()  
+    
+    
+print("////// Test 12 //////")
+a9 = [10,20,30,40]
+h9 = LinkedList(a9) 
+h9.printList() 
+
+h9.rotateRight()
+h9.printList() 

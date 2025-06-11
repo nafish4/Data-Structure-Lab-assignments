@@ -1,0 +1,156 @@
+class Node:
+    def __init__(self, e, n, p):
+        self.element = e
+        self.next = n
+        self.prev = p
+
+class DoublyList:
+    
+    def __init__(self, a):
+        
+        self.head=Node(None,None,None)
+        self.head.next=self.head
+        self.head.prev=self.head
+        for i in range(0,len(a)):
+            n=Node(a[i],None,None)
+            n.prev=self.head.prev
+            n.next=self.head
+            self.head.prev.next=n
+            self.head.prev=n 
+
+    def forwardprint(self):
+        n=self.head.next
+        while n!=self.head:
+            if n.next==self.head:
+                print(n.element,end=". ")
+            else:
+                print(n.element,end=", ")
+            n=n.next
+        print()
+    def backwardprint(self):
+        n=self.head.prev
+        while n!=self.head:
+            if n.prev==self.head:
+                print(n.element,end=". ")
+            else:
+                print(n.element,end=", ")
+            n=n.prev
+        print()
+    def countNode(self):
+        n=self.head.next
+        count=0
+        while n!=self.head:
+            count+=1
+            n=n.next
+        return count
+    def nodeAt(self,idx):
+        h=self.head.next
+        count=0
+        while h!=self.head:
+            if count==idx:
+                return h
+            count+=1
+            h=h.next
+        return "index error"
+    def indexOf(self, elem):
+        n=self.head.next
+        count=0
+        while n!=self.head:
+            if n.element==elem:
+                return count
+            count+=1
+            n=n.next
+        return -1
+    def insert(self, elem, idx):
+        if idx<0 or idx>self.countNode():
+            print("error")
+        else:
+            newNode=Node(elem,None,None)
+            if idx==self.countNode():
+                p=self.nodeAt(idx-1)
+                newNode.next=self.head
+                newNode.prev=p
+                p.next=newNode
+                self.head.prev=newNode
+            else:
+
+                p=self.nodeAt(idx)
+                
+                q=p.prev
+                newNode.next=p
+                newNode.prev=q
+                q.next=newNode
+                p.prev=newNode
+
+    def remove(self,idx):
+        count=self.countNode()
+        if idx<0 or idx>(count-1):
+            return None
+        else:
+            n=self.nodeAt(idx)
+            temp=n.element
+            previous=n.prev
+            after=n.next
+            previous.next=after
+            after.prev=previous
+            n.next=None
+            n.prev=None
+            n.element=None           
+            return str(temp)
+
+print("///  Test 01  ///")
+a1 = [10, 20, 30, 40]
+h1 = DoublyList(a1) 
+
+h1.forwardprint()  
+h1.backwardprint() 
+print(h1.countNode()) 
+
+print("///  Test 02  ///")
+
+myNode = h1.nodeAt(2)
+print(myNode.element) 
+
+print("///  Test 03  ///")
+
+index = h1.indexOf(40)
+print(index)  
+
+
+print("///  Test 04  ///")
+
+a2 = [10, 20, 30, 40]
+h2 = DoublyList(a2) 
+h2.forwardprint()  
+
+
+h2.insert(85,0)
+h2.forwardprint() 
+h2.backwardprint() 
+
+print()
+h2.insert(95,3)
+h2.forwardprint() 
+h2.backwardprint() 
+
+print()
+h2.insert(75,6)
+h2.forwardprint() 
+h2.backwardprint()  
+
+
+print("///  Test 05  ///")
+a3 = [10, 20, 30, 40, 50, 60, 70]
+h3 = DoublyList(a3) 
+h3.forwardprint()  
+
+
+print("Removed element: "+ h3.remove(0)) 
+h3.forwardprint() 
+h3.backwardprint() 
+print("Removed element: "+ h3.remove(3)) 
+h3.forwardprint()  
+h3.backwardprint()  
+print("Removed element: "+ h3.remove(4)) 
+h3.forwardprint() 
+h3.backwardprint()

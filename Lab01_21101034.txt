@@ -1,0 +1,174 @@
+#task1
+source=[10,20,30,40,50,60]
+def shiftLeft( source, k):
+    j=0
+    while j<k:
+        i=0
+        while i<len(source)-1:
+            source[i]=source[i+1]
+            i+=1
+        j+=1
+        source[len(source)-1]=0
+    return source
+x=shiftLeft( source, 3)
+print(x)
+
+#task2
+source=[10,20,30,40,50,60]
+def rotateLeft( source, k):
+    j=0
+    while j<k:
+        i=0
+        temp=source[0]
+        while i<len(source)-1:
+            source[i]=source[i+1]
+            i+=1
+        j+=1
+        source[len(source)-1]=temp
+    return source
+x=rotateLeft( source, 3)
+print(x)
+
+#task3
+source=[10,20,30,40,50,60]
+def shifRight( source, k):
+    for i in range(0,k):
+        for i in range(len(source)-1,-1,-1):
+            source[i]=source[i-1]
+        source[0]=0
+    return source
+x=shifRight( source, 3)
+print(x)
+
+#task4
+source=[10,20,30,40,50,60]
+def rotateRight( source, k):
+    for i in range(0,k):
+        j=source[len(source)-1]
+        for i in range(len(source)-1,-1,-1):
+            source[i]=source[i-1]
+        source[0]=j
+    return source
+x=rotateRight( source, 3)
+print(x)
+
+#task5
+source=[10,20,30,40,50,0,0]
+def remove( source, size, idx):
+    if idx<0 or idx>size:
+        print("invalid")
+    else:
+        i=idx
+        while i<size:
+            source[i]=source[i+1]
+            i+=1
+        source[size-1]=0
+        size-=1
+        return source
+x=remove(source,5,2)
+print(x)
+
+#task6
+source=[10,2,30,2,50,2,2,0,0]
+def removeAll( source, size, element):
+    x=0
+    while x<size:
+        if source[x]==element:
+            j=x     
+            for i in range(j,size):
+                source[i]=source[i+1]
+            source[size-1]=0
+            size-=1
+            x-=1
+        else:
+            x+=1
+    return source
+x=removeAll(source,7,2)
+print(x)
+
+#task7
+source=[10, 3, 1, 2, 10]
+def split(source):
+    sum1=0
+    sum2=0
+    index=1
+    boolean=0
+    j=0
+
+    while j<index:
+        if j<len(source)-1:
+            sum1=sum1+source[j]
+            j+=1
+        else:
+            break
+        for i in range(index,len(source)):
+            sum2=sum2+source[i]
+        if sum1==sum2:
+            boolean=1
+            return "true"
+            break
+        else:
+            sum2=0
+            index+=1
+    
+
+    if boolean==0:
+        return "false"
+print(split(source))
+
+#task8
+n=int(input())
+def series(n):
+    a=[0]*(n*n)
+    x=n-1
+    for i in range(1,n+1):
+        for j in range(x,n*n,n):
+            a[j]=i
+        x=x+n-1
+    return a
+        
+y=series(n)
+print(y)
+
+#task9
+a=   [1, 2, 2, 3, 4, 4, 4]
+def maxbunch(a):
+    count=1
+    maxcount=0
+    size=len(a)
+    for i in range(0,size):
+        if a[i]!=0:
+            if i==len(a)-1:
+                break
+  
+        if a[i]==a[i+1]:
+            count+=1
+        else:
+            count=1
+        if count>maxcount:
+            maxcount=count
+    return maxcount
+print(maxbunch(a))
+
+#task10
+source=[4,5,6,6,4,3,6,4]
+import math
+def repitition(source):
+    boolean=0
+    max=-math.inf
+    for i in range(0,len(source)):
+        if source[i]>max:
+            max=source[i]
+    a=[0]*(max+1)
+    for i in range(0,len(source)):
+        a[source[i]]+=1
+        
+    for i in range(0,len(a)):
+        for j in range(i+1,len(a)):
+            if (a[j]!=0 and a[i]!=0):
+                if a[i]==a[j] and a[i]>=2:
+                    boolean=1
+                    return "True"
+    if boolean==0:
+        return "False"
+print(repitition(source))

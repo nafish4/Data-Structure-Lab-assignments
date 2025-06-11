@@ -1,0 +1,239 @@
+#Nafis Chowdhury
+#21101034
+#Section:02
+
+#1.
+def selection_sort(a,i):
+    if i==len(a):
+        return a
+    else:
+        min=i
+        
+        p=minimum(a,min,i+1)   
+        if p!=i:
+            temp=a[i]
+            a[i]=a[p]
+            a[p]=temp
+
+        return selection_sort(a,i+1)
+
+def minimum(a,min,j):
+    if j==len(a):
+        return min
+    else:
+        if a[j]<a[min]:
+            min=j
+        return minimum(a,min,j+1)
+
+
+
+print(selection_sort([13,13,0,-4,-4,7,-1,-4,9,-6,21],0))
+
+#2.
+def insertionSort(a,l,r):
+    if l>=r:
+        return
+    else:
+        insertionSort(a,l,r-1)
+    for i in range(1,len(a)):
+        key=a[i]
+        j=i-1
+        while j>=0 and a[j]>key:
+            a[j+1]=a[j]
+            j-=1
+        a[j+1]=key
+
+a=[6,7,3,5,-9,-9,0]
+insertionSort(a,0,len(a)-1)
+print(a)
+
+#3.
+class node:
+    def __init__(self,e,n):
+        self.element=e
+        self.next=n
+class LinkedList:
+    def __init__(self,a):
+        self.head=None
+        tail=None
+        if type(a) is type([]):
+            for i in range(len(a)):
+                n=node(a[i],None)
+                if self.head==None:
+                    self.head=n
+                    tail=n
+                else:
+                    tail.next=n
+                    tail=n
+        else:
+            return self.head
+
+    def bubblesort(self,h):
+        i=h
+        while i.next!=None:
+            j=h
+            while j.next!=None: 
+                if j.element>j.next.element:
+                    temp=j.element
+                    j.element=j.next.element
+                    j.next.element=temp
+                j=j.next
+            i=i.next
+    def printnode(self):
+        h=self.head
+        while h!=None:
+            if h.next==None:
+                print(h.element,end="")
+            else:
+                print(h.element,end=",")
+            h=h.next
+a = [200, -40,-40, 10,0, -60, 20,-100]
+h1 = LinkedList(a)
+h1.bubblesort(h1.head)
+h1.printnode()
+
+#4.
+class node:
+    def __init__(self,e,n):
+        self.element=e
+        self.next=n
+class LinkedList:
+    def __init__(self,a):
+        self.head=None
+        tail=None
+        if type(a) is type([]):
+            for i in range(len(a)):
+                n=node(a[i],None)
+                if self.head==None:
+                    self.head=n
+                    tail=n
+                else:
+                    tail.next=n
+                    tail=n
+        else:
+            return self.head
+
+    def selectionsort(self,h):
+        head=h
+        tail=head.next
+        min=head
+        while head.next!=None:
+            while tail!=None:
+                if tail.element<min.element:
+                    min=tail
+                tail=tail.next
+            if min.element<head.element:
+                temp=head.element
+                head.element=min.element
+                min.element=temp
+            head=head.next
+            min=head
+            tail=head.next
+        
+
+    def printnode(self):
+        h=self.head
+        while h!=None:
+            if h.next==None:
+                print(h.element,end="")
+            else:
+                print(h.element,end=",")
+            h=h.next
+a = [-40,-40, 10, -60, 20]
+h1 = LinkedList(a)
+h1.selectionsort(h1.head)
+h1.printnode()
+
+#5.
+class node:
+    def __init__(self,e,n,p):
+        self.element=e
+        self.next=n
+        self.prev=p
+    
+
+class DoublyLinkedList:
+    def __init__(self,a):
+        self.head=None
+        tail=None
+        for i in range(len(a)):
+            n=node(a[i],None,None)
+            if self.head==None:
+                self.head=n
+                tail=n
+            else:
+                tail.next=n
+                n.prev=tail
+                tail=n
+def insertionSort(head,x):
+        if x==None:
+            return head
+        else:
+            nextNode=x.next
+            tail=x.prev
+            boolean=False
+            flag=False
+            while tail!=head.prev and tail.element>x.element:
+                flag=True
+                tail=tail.prev
+                if tail==head.prev:
+                    boolean=True
+            if flag==True:
+                if boolean==False:
+                    if x.next!=None:
+                        x.next.prev=x.prev
+                    x.prev.next=x.next
+                    x.prev=tail
+                    x.next=tail.next
+                    tail.next=x
+                else:
+                    x.prev.next=x.next
+                    if x.next!=None:
+                        x.next.prev=x.prev
+                    x.prev=None
+                    x.next=head
+                    head.prev=x
+                    head=x
+            return insertionSort(head,nextNode)
+
+def printNode(head):
+        h=head
+        while h!=None:
+            print(h.element)
+            h=h.next
+
+a=[-4,-6,0,-4,5,6,7]
+h1=DoublyLinkedList(a)
+h2=insertionSort(h1.head,h1.head.next)
+printNode(h2)
+
+#6.
+def binarySearch(a,value,left,right):
+    if left>right:
+        return -1
+    mid=(left+right)//2
+    if a[mid]==value:
+        return mid
+    elif a[mid]>value:
+        return binarySearch(a,value,left,mid-1)
+    else:
+        return binarySearch(a,value,mid+1,right)
+a=[1,6,9,12,13,16,22,22,25,29]
+print(binarySearch(a,13,0,len(a)-1))
+
+#7.
+new_array=[None]*1000
+new_array[0]=0
+new_array[1]=1
+def f(n):
+    if new_array[n]!=None:
+        return new_array[n]
+
+
+    else:
+        x=f(n-1)
+        y=f(n-2)
+        new_array[n]=y
+        new_array[n-1]=x
+        return x+y
+print(f(23))
